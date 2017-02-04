@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div class="main">Details</div>
+      <ion-icon name="information-circle" class="info-button"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-spinner *ngIf="!station || !station.NWS"></ion-spinner>
+<ion-content padding *ngIf="station && station.NWS">
+  <div class="station-view">
+    <div class="station-header-icon">
+      <ion-icon name="cloud" item-left isActive="true"></ion-icon>
+    </div>
+    <div class="station-content">
+      <span class="station-header">{{station.NWS}}</span>
+      <div class="station-name bold">{{station['COOP NAME']}}, {{station.COUNTY || 'NoCounty'}}</div>
+      <div class="station-long-lang">{{station.latitude}}N {{station.longitude}}W</div>
+      <div class="station-text">Elevation {{station.elevation}} Shef {{station.shefId}}</div>
+    </div>
+    <ion-icon class="favorite-button" name="star" (click)="station.isFavorite = !station.isFavorite;" item-right isActive="item.isFavorite"></ion-icon>
+  </div>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="detailsView" color="primary">
+      <ion-segment-button value="data">
+        Data
+      </ion-segment-button>
+      <ion-segment-button value="nearest">
+        Nearest
+      </ion-segment-button>
+      <ion-segment-button value="map">
+        Map
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <div class="segment-view">
+    <div [hidden]="!(detailsView === 'data')">
+      <div class="detail-item"><span class="bold">Maximum temperature (°F) </span>{{detailData[1]}}</div>
+      <div class="detail-item"><span class="bold">Minimum temperature (°F) </span>{{detailData[2]}}</div>
+      <div class="detail-item"><span class="bold">Average temperature (°F) </span>{{detailData[3]}}</div>
+      <div class="detail-item"><span class="bold">Obs time temperature (°F) </span>{{detailData[4]}}</div>
+      <div class="detail-item"><span class="bold">Precipitation (inches) </span>{{detailData[5]}} </div>
+      <div class="detail-item"><span class="bold">Snowfall (inches) </span>{{detailData[6]}}</div>
+      <div class="detail-item"><span class="bold">Snow Depth (inches) </span>{{detailData[7]}}</div>
+      <div class="detail-item"><span class="bold">Cooling degree days (default base 65) </span>{{detailData[8]}}</div>
+      <div class="detail-item"><span class="bold">Degree days below base (default base 65) </span>{{detailData[9]}}</div>
+      <div class="detail-item"><span class="bold">Degree days above base (default base 50) </span>{{detailData[10]}}</div>
+    </div>
+    <div [hidden]="!(detailsView === 'nearest')">
+      <div class="station-item" *ngFor="let item of sortedNearBy" (click)="selectStation(item)">
+        <div class="station-content">
+          <div class="header-text">{{item.NWS}}</div>
+          <div class="station-country">{{item['COOP NAME']}},{{item.COUNTRY}}, {{(item.COUNTY + ',') || ''}} {{item.STATE}}</div>
+          <div class="station-long-lang">
+            <span class="bold">LAT.</span> {{(item.latitude + '').slice(0, 6)}}
+            <span class="bold">LON.</span> {{(item.longitude + '').slice(0, 6)}}
+          </div>
+        </div>
+        <ion-icon class="favorite-button" name="star" (click)="item.isFavorite = !item.isFavorite;saveMetadataFile()" item-right
+          isActive="item.isFavorite"></ion-icon>
+      </div>
+    </div>
+    <div [hidden]="!(detailsView === 'map')">
+      <img *ngIf="station" src="https://maps.googleapis.com/maps/api/staticmap?center={{station.LAT_D}},{{station.LON_D}}&zoom=16&size=640x640&path=weight:3%7Ccolor:blue%7Cenc:{coaHnetiVjM??_SkM??~R&key=AIzaSyDg74vIUKuuoBh7opyeYrNtFTO1EU4rpn8"
+        alt="">
+    </div>
+  </div>
+</ion-content>

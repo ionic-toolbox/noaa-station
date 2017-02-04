@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div class="main">List</div>
+      <ion-icon name="information-circle" class="info-button"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="list-item" *ngFor="let countryName of countriesNames">
+    <div class="list-item-content" (click)="showRadio(countryName)">
+      {{countryName}}
+    </div>
+  </div>
+</ion-content>

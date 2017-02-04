@@ -1,0 +1,42 @@
+page-nearest {
+    .detail-item {
+        font-size: 12px;
+    }
+    .station-header {
+        font-size: 10px;
+    }
+    .favorite-button {
+        vertical-align: top;
+        font-size: 40px;
+        float: right;
+    }
+    .station-header-icon {
+        display: inline-block;
+        ion-icon {
+            text-align: center;
+            display: block;
+            font-size: 60px;
+            float: left;
+        }
+    }
+    .bold {
+        font-weight: bold;
+    }
+    .station-name {
+        font-size: 12px;
+    }
+    .station-content {
+        vertical-align: top;
+        display: inline-block;
+        padding: 10px;
+        width: 60%;
+    }
+    .segment-view {
+        overflow: scroll;
+        height: 70%;
+        width: 100%;
+    }
+    ion-segment {
+        background-color: #fff;
+    }
+}

@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div class="main">Select State</div>
+      <ion-icon name="information-circle" class="info-button"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="list-item" *ngFor="let state of states">
+    <div class="list-item-content" (click)="selectState(state)">
+      {{state}}
+    </div>
+  </div>
+</ion-content>

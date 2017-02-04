@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div class="main">Favorites</div>
+      <ion-icon name="information-circle" class="info-button"></ion-icon>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div class="type-to-search" *ngIf="!favorites || !favorites.length">no favorites</div>
+  <div class="list-container">
+    <div class="list-item" *ngFor="let item of favorites" (click)="selectStation(item)">
+      <div class="station-content">
+        <div class="header-text">{{item.NWS}}</div>
+        <div class="station-country">
+          <span class="bold title">{{item['COOP NAME'] || 'No Coop Name'}}</span>,
+          <span class="bold dark-green">COUNTY :</span> {{item.COUNTY || 'No County'}},
+          <span class="bold dark-green">STATE :</span> {{item.STATE}}
+          <div class="station-long-lang bold">
+            <span class="bold dark-green">LAT.</span> {{(item.latitude + '' || '').slice(0, 6)}}
+            <span class="bold dark-green">LON.</span> {{(item.longitude + ''|| '').slice(0, 6)}}
+          </div>
+          <span class="bold dark-green">EL OTHER :</span> {{item.EL_OTHER}},
+          <span class="bold dark-green">STN TYPE :</span> {{item.STNTYPE}}
+        </div>
+      </div>
+      <ion-icon class="favorite-button" name="star" (click)="item.isFavorite = !item.isFavorite;onFavoriteClick(item.id, $event)"
+        [ngClass]="{ 'is-favorite': item.isFavorite }" item-right></ion-icon>
+    </div>
+  </div>
+</ion-content>
